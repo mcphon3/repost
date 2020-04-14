@@ -3,40 +3,6 @@ local _debug = false
 local location = { "LUA", "B" }
 local key
 
---/weapon table
-local weapons = {
-	["Auto"] = {11,38},
-	["Awp"] = {9},
-	["Scout"] = {40},
-	["Revolver"] = {64},
-	--["Pistol"] = {2, 3, 4, 30, 32, 36, 61, 63},
-    --["Rifle"] = {7, 8, 10, 13, 16, 39, 60},
-    --["Desert Eagle"] = { 1 },
-    --["Submachine gun"] = {17, 19, 24, 26, 33, 34},
-    --["Heavy"] = {14, 28},
-    --["Shotgun"] = {25, 27, 29, 35}
-}
-
---/minimum health to toggle delay shot for
-local health = {
-	["Auto"] = 54,
-	["Awp"] = 99,
-	["Scout"] = 92,
-	["Revolver"] = 97,
-	--["Pistol"] = 92,
-    --["Rifle"] = 92,
-    --["Desert Eagle"] = 92,
-    --["Submachine gun"] = 92,
-    --["Heavy"] = 92,
-    --["Shotgun"] = 92,
-}
-
---/references to menu controls
-local reference = {
-	damage = ui.reference("RAGE", "Aimbot", "Minimum damage"),
-	delay = ui.reference("RAGE", "Other", "Delay shot")
-}
-
 --/new script controls
 local interface = {
 	enabled = ui.new_checkbox(location[1], location[2], "Delay on-shot"),
@@ -54,6 +20,44 @@ local interface = {
     	--"Heavy",
     	--"Shotgun"
 	}),
+	autoslider = ui.new_slider(location[1], location[2], "Auto on-shot min dmg",0,100,0),
+	scoutslider = ui.new_slider(location[1], location[2], "Scout on-shot min dmg",0,100,0),
+	awpslider = ui.new_slider(location[1], location[2], "Awp on-shot min dmg",0,100,0),
+	r8slider = ui.new_slider(location[1], location[2], "R8 on-shot min dmg",0,100,0),
+}
+
+--/weapon table
+local weapons = {
+	["Auto"] = {11,38},
+	["Awp"] = {9},
+	["Scout"] = {40},
+	["Revolver"] = {64},
+	--["Pistol"] = {2, 3, 4, 30, 32, 36, 61, 63},
+    --["Rifle"] = {7, 8, 10, 13, 16, 39, 60},
+    --["Desert Eagle"] = { 1 },
+    --["Submachine gun"] = {17, 19, 24, 26, 33, 34},
+    --["Heavy"] = {14, 28},
+    --["Shotgun"] = {25, 27, 29, 35}
+}
+
+--/minimum health to toggle delay shot for
+local health = {
+	["Auto"] = autoslider,
+	["Awp"] = awpslider,
+	["Scout"] = scoutslider,
+	["Revolver"] = r8slider,
+	--["Pistol"] = 92,
+    --["Rifle"] = 92,
+    --["Desert Eagle"] = 92,
+    --["Submachine gun"] = 92,
+    --["Heavy"] = 92,
+    --["Shotgun"] = 92,
+}
+
+--/references to menu controls
+local reference = {
+	damage = ui.reference("RAGE", "Aimbot", "Minimum damage"),
+	delay = ui.reference("RAGE", "Other", "Delay shot")
 }
 
 --/helper functions
@@ -154,7 +158,13 @@ local handle_visibility = function()
 	multi_exec(ui.set_visible, {
 		[interface.weapons] = state,
 		[interface.damage] = state,
-		[interface.air] = state
+		[interface.air] = state,
+		[autoslider.air] = state,
+		[awpslider.air] = state,
+		[scoutslider.air] = state,
+		[r8slider.air] = state
+			
+			
 	})
 end
 handle_visibility()
