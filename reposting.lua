@@ -42,10 +42,10 @@ local weapons = {
 
 --/minimum health to toggle delay shot for
 local health = {
-	["Auto"] = autoslider,
-	["Awp"] = awpslider,
-	["Scout"] = scoutslider,
-	["Revolver"] = r8slider,
+	["Auto"] = ui.get(autoslider),
+	["Awp"] = ui.get(awpslider),
+	["Scout"] =ui.get(scoutslider),
+	["Revolver"] = ui.get(r8slider),
 	--["Pistol"] = 92,
     --["Rifle"] = 92,
     --["Desert Eagle"] = 92,
